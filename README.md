@@ -1,14 +1,2 @@
-# End-to-End testing With Puppeteer and Jest
+# CWP automation testing suits
 
-Starter project for tutorial
-
-### Installing
-```
-install dependencies:
-    npm install
-```
-
-### Run application
-```
-npm run dev-server
-```
