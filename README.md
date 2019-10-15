@@ -1,2 +1,2 @@
-# CWP automation testing suits
+# CWP automatization testing suits
 
