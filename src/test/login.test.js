@@ -1,19 +1,20 @@
 const timeout = process.env.SLOWMO ? 30000 : 10000;
 
-
 beforeAll(async () => {
-
-
     await page.authenticate({username:USERNAME, password:PASSWORD});
     await page.goto(URL,{waitUntil: 'domcontentloaded'});
-
 });
 
 describe('Log IN & OUT', () => {
     test('The user can log into app', async () => {
 
-       await page.waitForSelector('.login button');
-        await page.click('[type="button"]');
+        await page.waitForSelector('.login button');
+        await page.click('.login button');
+        await page.waitForSelector('input[name="email"]');
+        await page.keyboard.type(EMAIL);
+        await page.click('button[id="next-btn"]');
+        await page.waitForSelector('input[name="password"]');
+        await page.keyboard.type(ACCPASS);
 /*
            await page.click('input[name=email]')
            await page.type('input[name=email]', 'yomi@mail.com')
