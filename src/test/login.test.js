@@ -1,4 +1,4 @@
-const timeout = process.env.SLOWMO ? 60000 : 60000;
+const timeout = process.env.SLOWMO ? 5 : 5;
 
 beforeAll(async () => {
     await page.authenticate({username:USERNAME, password:PASSWORD});
@@ -11,9 +11,11 @@ describe('Log IN & OUT', () => {
         await page.waitForSelector('.login button');
         await page.click('.login button');
         await page.waitForSelector('input[name="email"]');
+        await page.click('input[id="input_email"]');
         await page.keyboard.type(EMAIL);
         await page.click('button[id="next-btn"]');
         await page.waitForSelector('input[name="password"]');
+        await page.click('input[id=input_password_for_login]');
         await page.keyboard.type(ACCPASS);
         await page.click('button[id="next-btn"]');
         await page.waitForNavigation();
