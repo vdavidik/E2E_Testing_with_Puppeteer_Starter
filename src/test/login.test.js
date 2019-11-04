@@ -1,3 +1,4 @@
+require ('../selectors.js');
 const timeout = process.env.SLOWMO ? 600000 : 600000;
 const fs = require('fs');
 var newLength = [];
@@ -5,7 +6,8 @@ var newLength = [];
 beforeAll(async () => {
     await page.authenticate({username:USERNAME, password:PASSWORD});
     await page.goto(URL,{waitUntil: 'domcontentloaded'});
- page.on('response', response => {
+
+        page.on('response', response => {
                 if (response.status().toString().match('4[0-9]{2}|5[0-4][0-9]|550')) {
                               console.log(response.status() + ' ' + response.url());
                               newLength.push(response.status() + ' ' + response.url());
@@ -20,6 +22,16 @@ fs.writeFile('LOG.txt', (newLength + '\r\n'));
 describe('Log IN & Tiles check', () => {
     test('Login', async () => {
 
+
+                try {
+                   await page.waitForSelector('.btn-sa-primary-extra-small');
+                } catch (error) {
+                  console.log("The element didn't appear.")
+                }
+
+
+        await page.click(mainPageDropBoxLanguage);
+        await page.click(mainPageDropBoxEnglish);
         await page.waitForSelector('.login button');
         await page.click('.login button');
         await page.waitForSelector('input[name="email"]');
@@ -91,6 +103,15 @@ describe('Log IN & Tiles check', () => {
                         await page.goBack();
 
                    }, timeout);
+
+test('Log out', async () => {
+
+                                           await page.waitForSelector('#root > div > nav > div > div:nth-child(3) > div.main-menu__profile-group.navbar-nav > div > div > div.main-menu__dropdown-item.dropdown-item');
+                                           await page.click('#root > div > nav > div > div:nth-child(3) > div.main-menu__profile-group.navbar-nav > div > div > div.main-menu__dropdown-item.dropdown-item');
+                                           const h1Handle = await page.$('#root > div > main > div > button > span');
+                                                                           const html = await page.evaluate(h1Handle => h1Handle.innerHTML, h1Handle);
+                                                                           expect(html).toBe("Login");
+                                      }, timeout);
 
           test('HTML status codes check', async () => {
 

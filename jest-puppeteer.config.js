@@ -1,7 +1,8 @@
 module.exports = {
     launch: {
         headless: false,
-        slowMo: process.env.SLOWMO ? process.env.SLOWMO :200,
-        devtools: true
+        defaultViewport: null,
+        slowMo: process.env.SLOWMO ? process.env.SLOWMO :250,
+        devtools: false
     }
 }

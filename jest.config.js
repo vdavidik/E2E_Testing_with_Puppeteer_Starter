@@ -5,19 +5,20 @@ module.exports = {
         PASSWORD: "piglet-test",
         URL: "https://test.skoda-connect.com/",
         EMAIL: "mod5.cwp@seznam.cz",
-        ACCPASS: "ConnectedcarCWP1"
+        ACCPASS: "ConnectedcarCWP1",
+        acceptCookies:'.btn-sa-primary-extra-small',
+        mainPageDropBoxLanguage:'div.footer__legal-row__language-selector-col > div > div > div.scrollable-selectbox__inner > div.scrollable-selectbox__valuebox',
+        mainPageDropBoxEnglish:'.scrollable-selectbox__optionbox--opened>.option:nth-child(3)'
+
     },
     testMatch: [
       "**/test/**/*.test.js"
     ],
     verbose: true,
 
-"reporters": [
-	"default",
-	"./node_modules/jest-html-reporters"
-]
-
+    reporters: [
+              "default",
+              ["jest-html-reporters",{
+              expand:true}]
+            ]
 }
-
-
-
