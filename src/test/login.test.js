@@ -6,6 +6,17 @@ var newLength = [];
 beforeAll(async () => {
     await page.authenticate({username:USERNAME, password:PASSWORD});
     await page.goto(URL,{waitUntil: 'domcontentloaded'});
+     try {
+                       await page.waitForSelector('.cookie-consent-dialogue');
+                        console.log("The element found.")
+                    } catch (error) {
+                      console.log("The element didn't appear.")
+                    }
+    let div_selector_to_remove= ".cookie-consent-dialogue";
+    await page.evaluate((sel) => {
+        var elements = document.querySelector(sel);
+                   elements.parentNode.removeChild(elements);
+            }, div_selector_to_remove)
 
         page.on('response', response => {
                 if (response.status().toString().match('4[0-9]{2}|5[0-4][0-9]|550')) {
@@ -22,15 +33,8 @@ fs.writeFile('LOG.txt', (newLength + '\r\n'));
 describe('Log IN & Tiles check', () => {
     test('Login', async () => {
 
-
-                try {
-                   await page.waitForSelector('.btn-sa-primary-extra-small');
-                } catch (error) {
-                  console.log("The element didn't appear.")
-                }
-
-
-        await page.click(mainPageDropBoxLanguage);
+        await page.waitForSelector('.culture-selector-container .scrollable-selectbox__valuebox-icon');
+        await page.click('.culture-selector-container .scrollable-selectbox__valuebox-icon');
         await page.click(mainPageDropBoxEnglish);
         await page.waitForSelector('.login button');
         await page.click('.login button');
@@ -106,11 +110,12 @@ describe('Log IN & Tiles check', () => {
 
 test('Log out', async () => {
 
-                                           await page.waitForSelector('#root > div > nav > div > div:nth-child(3) > div.main-menu__profile-group.navbar-nav > div > div > div.main-menu__dropdown-item.dropdown-item');
-                                           await page.click('#root > div > nav > div > div:nth-child(3) > div.main-menu__profile-group.navbar-nav > div > div > div.main-menu__dropdown-item.dropdown-item');
-                                           const h1Handle = await page.$('#root > div > main > div > button > span');
-                                                                           const html = await page.evaluate(h1Handle => h1Handle.innerHTML, h1Handle);
-                                                                           expect(html).toBe("Login");
+                                           await page.waitForSelector('div[class="main-menu__dropdown dropdown nav-item"]');
+                                           await page.click('div[class="main-menu__dropdown dropdown nav-item"]');
+                                           await page.waitForSelector('div[class="main-menu__dropdown-item dropdown-item"]');
+                                           await page.click('div[class="main-menu__dropdown-item dropdown-item"]');
+                                           const title = await page.title();
+                                                   expect(title).toBe('ŠKODA CONNECT')
                                       }, timeout);
 
           test('HTML status codes check', async () => {
