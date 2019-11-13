@@ -5,7 +5,7 @@ var newLength = [];
 
 beforeAll(async () => {
     await page.authenticate({username:USERNAME, password:PASSWORD});
-    await page.goto(URL,{waitUntil: 'domcontentloaded'});
+    await page.goto(URLTOFETCH,{waitUntil: 'domcontentloaded'});
      try {
                        await page.waitForSelector('.cookie-consent-dialogue');
                         console.log("The element found.")

@@ -3,7 +3,7 @@ module.exports = {
     globals: {
         USERNAME: "cwp",
         PASSWORD: "piglet-test",
-        URL: "https://test.skoda-connect.com/",
+        URLTOFETCH: "https://test.skoda-connect.com/",
         EMAIL: "mod5.cwp@seznam.cz",
         ACCPASS: "ConnectedcarCWP1",
         acceptCookies:'.btn-sa-primary-extra-small',
